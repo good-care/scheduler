@@ -1,0 +1,24 @@
+server:
+  port: 9097
+
+spring:
+  rabbitmq:
+    host: ${RMQ_HOST:localhost}
+    port: ${RMQ_API_PORT:5672}
+    username: ${RMQ_USERNAME:user}
+    password: ${RMQ_PASSWORD:pwd}
+
+hibernate:
+  host: ${DB_HOST:localhost}
+  port: ${DB_PORT:5432}
+  username: ${DB_USERNAME:user}
+  password: ${DB_PASSWORD:pwd}
+  dbname: ${DB_NAME:postgres}
+  packages: com.mokhovav.goodcare_scheduler.entites
+
+logging:
+  pattern:
+    console: "%cyan(%d{ISO8601}) %highlight(%-5level) [%green(%t)] %yellow(%C{1.}): %msg%n%throwable"
+  level:
+    root: info
+    com.mokhovav: debug

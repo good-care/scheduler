@@ -1,0 +1,35 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.mokhovav'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+	implementation 'org.hibernate:hibernate-core'
+	implementation 'org.springframework:spring-orm'
+	// only required at runtime
+	runtimeOnly 'org.postgresql:postgresql'
+
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
+	testCompile group: 'junit', name: 'junit', version: '4.13.1'
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation 'org.springframework.amqp:spring-rabbit-test'
+}
+
+test {
+	useJUnitPlatform()
+}
