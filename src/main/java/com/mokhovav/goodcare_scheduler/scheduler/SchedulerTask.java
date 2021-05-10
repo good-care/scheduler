@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ScheduledFuture;
 
@@ -106,6 +108,20 @@ public class SchedulerTask implements Runnable {
 
     private void updateSQuotationsTask() {
         logger.info("UPDATE_QUOTATIONS");
+        Timestamp timestamp = task.getLastStartTime();
+        if (timestamp == null){
+            try {
+                final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                long securityUpdateTime = dateFormat
+                        .parse("2020-09-01 22:00:00")
+                        .getTime();
+                timestamp = new Timestamp(securityUpdateTime);
+            } catch (Exception exception) {
+
+            }
+        }
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        rmqService.send(new RMQMessage(TaskType.UPDATE_QUOTATIONS, new String[]{dateFormat.format(timestamp)}));
     }
 
     public Task getTask() {
